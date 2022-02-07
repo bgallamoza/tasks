@@ -8,8 +8,10 @@ function App(): JSX.Element {
                 UD CISC275 with React Hooks and TypeScript
             </header>
             <p>
-                Edit <code>src/App.tsx</code> and save. This page will
-                automatically reload.
+                <h1>Brennan Gallamoza</h1>
+                <h3 style={{ color: "gray" }}>
+                    Computer Science BS, Minor in Biology and Mathematics
+                </h3>
             </p>
         </div>
     );
