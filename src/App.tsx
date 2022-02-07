@@ -11,7 +11,7 @@ function App(): JSX.Element {
             <h3 style={{ color: "gray" }}>
                 Computer Science BS, Minor in Biology and Mathematics
             </h3>
-            <p>Hello World!</p>
+            <p>Hello World! Nice to meet you!</p>
         </div>
     );
 }
