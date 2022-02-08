@@ -9,10 +9,14 @@ function App(): JSX.Element {
         <div className="App">
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript
+                <p className="App-sub-header">
+                    Page by Brennan Gallamoza <br /> Computer Science BS, Minor
+                    in Biology and Mathematics
+                </p>
             </header>
-            <h1>Brennan Gallamoza</h1>
-            <img src={pfp} alt="A picture of me" />
-            <p>Computer Science BS, Minor in Biology and Mathematics</p>
+            <h1>Introduction</h1>
+            <img src={pfp} alt="A picture of me!" />
+            <p className="caption">A picture of me!</p>
             <p>Hello World! Nice to meet you!</p>
 
             <Button
@@ -26,10 +30,11 @@ function App(): JSX.Element {
                 <Row>
                     <Col>
                         <div className="red-rect"></div>
+                        Some of my hobbies:
                         <ul>
-                            <li>Dog</li>
-                            <li>Cat</li>
-                            <li>Fish</li>
+                            <li>Digital art</li>
+                            <li>Fighting games</li>
+                            <li>Woodworking</li>
                         </ul>
                     </Col>
                     <Col>
