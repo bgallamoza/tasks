@@ -13,7 +13,7 @@ export function fahrenheitToCelius(temperature: number): number {
  */
 export function add3(first: number, second: number, third: number): number {
     const arr: number[] = [first, second, third];
-    return arr.map((n) => (n > 0 ? n : 0)).reduce((a, b) => a + b);
+    return arr.map((n: number) => (n > 0 ? n : 0)).reduce((a, b) => a + b);
 }
 
 /**
