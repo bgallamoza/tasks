@@ -13,6 +13,7 @@ export function fahrenheitToCelius(temperature: number): number {
  */
 export function add3(first: number, second: number, third: number): number {
     let sum = 0;
+    // eslint-disable-next-line no-extra-parens
     [first, second, third].forEach((n: number) => (sum += n > 0 ? n : 0));
     return sum;
 }
