@@ -12,10 +12,8 @@ export function fahrenheitToCelius(temperature: number): number {
  * if the number is greater than zero.
  */
 export function add3(first: number, second: number, third: number): number {
-    let sum = 0;
-    // eslint-disable-next-line no-extra-parens
-    [first, second, third].forEach((n: number) => (sum += n > 0 ? n : 0));
-    return sum;
+    const arr: number[] = [first, second, third];
+    return arr.map((n) => (n > 0 ? n : 0)).reduce((a, b) => a + b);
 }
 
 /**
