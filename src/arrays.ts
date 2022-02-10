@@ -5,11 +5,10 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers.length == 0
-        ? [] // base case when list is empty
-        : numbers.length == 1
-        ? [numbers[0], numbers[0]] // base case when list has one element
-        : [numbers[0], numbers[numbers.length - 1]]; // otherwise, get first and last elements
+    // base case when list is empty
+    if (numbers.length == 0) return [];
+    else if (numbers.length == 1) return [numbers[0], numbers[0]]; // base case when list has one element
+    return [numbers[0], numbers[numbers.length - 1]]; // otherwise, get first and last elements
 }
 
 /**
