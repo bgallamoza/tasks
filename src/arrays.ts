@@ -5,14 +5,11 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    switch (numbers.length) {
-        case 0:
-            return [];
-        case 1:
-            return [numbers[0], numbers[0]];
-        default:
-            return [numbers[0], numbers[numbers.length - 1]];
-    }
+    return numbers.length == 0
+        ? []
+        : numbers.length == 1
+        ? [numbers[0], numbers[0]]
+        : [numbers[0], numbers[numbers.length - 1]];
 }
 
 /**
@@ -28,9 +25,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return numbers
-        .map((n: string): number => parseInt(n))
-        .map((n: number): number => (isNaN(n) ? 0 : n));
+    return numbers.map((s: string): number => {
+        const n: number = parseInt(s);
+        return isNaN(n) ? 0 : n;
+    });
 }
 
 /**
