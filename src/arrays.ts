@@ -74,9 +74,10 @@ export function countShortWords(words: string[]): number {
  */
 export function allRGB(colors: string[]): boolean {
     return (
+        colors.length === 0 ||
         colors.filter((color: string): boolean =>
             ["red", "blue", "green"].includes(color)
-        ).length === colors.length || colors.length === 0
+        ).length === colors.length
     );
 }
 
@@ -90,14 +91,9 @@ export function allRGB(colors: string[]): boolean {
 export function makeMath(addends: number[]): string {
     return addends.length === 0
         ? "0=0"
-        : (
-              addends
-                  .reduce((a: number, b: number): number => a + b)
-                  .toString() +
-              addends.reduce((a: string, b: number): string => {
-                  return a + b.toString() + "+";
-              }, "=")
-          ).slice(0, -1);
+        : addends.reduce((a: number, b: number): number => a + b).toString() +
+              "=" +
+              addends.join("+");
 }
 
 /**
@@ -110,24 +106,16 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    console.log("=======================");
     const copy: number[] = [...values];
-    console.log(copy);
     const firstNeg: number | undefined = copy.find(
         (n: number): boolean => n < 0
     );
     const negIdx: number =
         firstNeg === undefined ? copy.length : copy.indexOf(firstNeg);
 
-    console.log(negIdx);
-    console.log(copy);
-
     const sum: number = copy.slice(0, negIdx).reduce((a, b) => a + b, 0);
-    console.log(sum);
-    console.log(copy);
 
     copy.splice(negIdx + 1, 0, sum);
 
-    console.log(copy);
     return copy;
 }
