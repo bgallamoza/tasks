@@ -41,7 +41,7 @@ export function stringsToIntegers(numbers: string[]): number[] {
 export const removeDollars = (amounts: string[]): number[] => {
     return amounts.map((s: string): number => {
         if (s.startsWith("$")) {
-            s = s.substring(1, s.length);
+            s = s.substring(1, s.length); // remove leading "$" if present
         }
         const n: number = parseInt(s);
         return isNaN(n) ? 0 : n;
@@ -90,10 +90,10 @@ export function allRGB(colors: string[]): boolean {
  */
 export function makeMath(addends: number[]): string {
     return addends.length === 0
-        ? "0=0"
+        ? "0=0" // base case when list is empty
         : addends.reduce((a: number, b: number): number => a + b).toString() +
-              "=" +
-              addends.join("+");
+              "=" + // separate sum and joined arguments
+              addends.join("+"); // convert sum to string and join arguments by a + sign
 }
 
 /**
@@ -106,16 +106,19 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    const copy: number[] = [...values];
+    const copy: number[] = [...values]; // make copy of array
+
+    // find first negative number, if present
     const firstNeg: number | undefined = copy.find(
         (n: number): boolean => n < 0
     );
-    const negIdx: number =
+    const negIdx: number = // get idx of negative number, otherwise end of array if not present
         firstNeg === undefined ? copy.length : copy.indexOf(firstNeg);
 
+    // get sum of positive elements before the first negative number
     const sum: number = copy.slice(0, negIdx).reduce((a, b) => a + b, 0);
 
-    copy.splice(negIdx + 1, 0, sum);
+    copy.splice(negIdx + 1, 0, sum); // insert sum after negIdx
 
     return copy;
 }
