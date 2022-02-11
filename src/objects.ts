@@ -42,13 +42,13 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
-    if (
-        question.type === "short_answer_question" || // all short_answer_question type answers are valid
-        (question.type === "multiple_choice_question" && // if multiple_choice, the options must include answer
-            question.options.includes(answer))
+    if (question.type === "short_answer_question") return true;
+    else if (
+        question.type === "multiple_choice_question" &&
+        question.options.includes(answer)
     )
         return true;
-    return false; // must not be valid otherwise
+    return false;
 }
 
 /**
@@ -85,8 +85,8 @@ export function toMarkdown(question: Question): string {
     return (
         `# ${question.name}\n${question.body}` +
         (question.options.length === 0
-            ? "" // empty options list should have an absent option list
-            : "\n" + //If options isn't empty, put a `- ` before each option and join by new lines
+            ? ""
+            : "\n" +
               question.options.map((s: string): string => `- ${s}`).join("\n"))
     );
 }
