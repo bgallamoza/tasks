@@ -206,19 +206,21 @@ export function editOption(
     newOption: string
 ) {
     // NOTE: my helper functions are specifically setup to prevent ESLint errors due to indents...
-    const replaceOptions = (options: string[]): string[] => {
+    const replaceOption = (options: string[]): string[] => {
+        // when targetOptionIndex !== -1, replaces targetIdx with newOption
         return options.map((s: string, idx: number): string =>
             idx === targetOptionIndex ? newOption : s
         );
     };
 
     const makeNewQuestion = (q: Question): Question => {
+        // returns new question with changed option field
         return {
             ...q,
             options:
                 targetOptionIndex === -1
-                    ? [...q.options, newOption]
-                    : replaceOptions(q.options)
+                    ? [...q.options, newOption] // when targetOptionIndex === -1, append newOption
+                    : replaceOption(q.options) // otherwise call replaceOption
         };
     };
 
@@ -238,12 +240,13 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    const dupeIdx: number = questions
-        .map((q: Question): number => q.id)
-        .indexOf(targetId);
-    if (dupeIdx === undefined) return questions;
+    const dupeIdx: number = questions.findIndex(
+        // get index of Question that matches targetId
+        (q: Question): boolean => q.id === targetId
+    );
+    if (dupeIdx === -1) return questions; // if index not found, return unedited questions
 
-    const dupedArray: Question[] = [...questions];
+    const dupedArray: Question[] = [...questions]; // copy and splice array with new dupe question
     dupedArray.splice(
         dupeIdx + 1,
         0,
