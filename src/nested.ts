@@ -1,6 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -205,7 +205,26 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ) {
-    return [];
+    // NOTE: my helper functions are specifically setup to prevent ESLint errors due to indents...
+    const replaceOptions = (options: string[]): string[] => {
+        return options.map((s: string, idx: number): string =>
+            idx === targetOptionIndex ? newOption : s
+        );
+    };
+
+    const makeNewQuestion = (q: Question): Question => {
+        return {
+            ...q,
+            options:
+                targetOptionIndex === -1
+                    ? [...q.options, newOption]
+                    : replaceOptions(q.options)
+        };
+    };
+
+    return questions.map(
+        (q: Question): Question => (q.id !== targetId ? q : makeNewQuestion(q))
+    );
 }
 
 /***
@@ -219,5 +238,17 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    const dupeIdx: number = questions
+        .map((q: Question): number => q.id)
+        .indexOf(targetId);
+    if (dupeIdx === undefined) return questions;
+
+    const dupedArray: Question[] = [...questions];
+    dupedArray.splice(
+        dupeIdx + 1,
+        0,
+        duplicateQuestion(newId, questions[dupeIdx])
+    );
+
+    return dupedArray;
 }
