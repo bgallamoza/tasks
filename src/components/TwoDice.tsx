@@ -16,6 +16,7 @@ export function TwoDice(): JSX.Element {
     const [D2, setD2] = useState<number>(6);
 
     const getResult = (): string => {
+        // handles the printed result of the TwoDice component
         if (D1 === D2) {
             if (D1 === 1) return "You Lose";
             return "You Win!";
