@@ -3,11 +3,11 @@ import { Button } from "react-bootstrap";
 
 export function CycleHoliday(): JSX.Element {
     const myHolidays: Holiday[] = [
-        { name: "Chinese New Year", emoji: "🐲", date: new Date("2022-12-21") },
-        { name: "Christmas", emoji: "🎅", date: new Date("2022-12-25") },
-        { name: "Pi Day", emoji: "📚", date: new Date("2022-03-14") },
-        { name: "Thanksgiving Day", emoji: "🦃", date: new Date("2022-11-24") },
-        { name: "Independence Day", emoji: "🇺🇸", date: new Date("2022-07-04") }
+        { name: "Chinese New Year", emoji: "🐲", date: 12.21 },
+        { name: "Christmas", emoji: "🎅", date: 12.25 },
+        { name: "Pi Day", emoji: "📚", date: 3.14 },
+        { name: "Thanksgiving Day", emoji: "🦃", date: 11.24 },
+        { name: "Independence Day", emoji: "🇺🇸", date: 7.04 }
     ];
     const [holiday, setHoliday] = useState<Holiday>(myHolidays[0]);
 
@@ -46,6 +46,7 @@ export function CycleHoliday(): JSX.Element {
     return (
         <div>
             <p>Current Holiday: {holiday.emoji}</p>
+            <p>({holiday.name})</p>
             <Button onClick={() => getNextHoliday("name")}>
                 Advance by Alphabet
             </Button>
@@ -57,7 +58,7 @@ export function CycleHoliday(): JSX.Element {
 }
 
 interface Holiday {
-    name: string;
-    emoji: string;
-    date: Date;
+    name: string; // holiday name in alphanumeric
+    emoji: string; // holiday as emoji representation
+    date: number; // date as a floating point, in the form of MM.DD
 }
