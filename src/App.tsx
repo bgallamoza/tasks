@@ -1,5 +1,4 @@
 import React from "react";
-import pfp from "./pfp.jpg";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
 import { RevealAnswer } from "./components/RevealAnswer";
