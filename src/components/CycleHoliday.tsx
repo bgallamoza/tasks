@@ -3,11 +3,11 @@ import { Button } from "react-bootstrap";
 
 export function CycleHoliday(): JSX.Element {
     const myHolidays: Holiday[] = [
-        { name: "Chinese New Year", emoji: "🐲", date: 12.21 },
+        { name: "Halloween", emoji: "🎃", date: 10.31 },
         { name: "Christmas", emoji: "🎅", date: 12.25 },
         { name: "Pi Day", emoji: "📚", date: 3.14 },
         { name: "Thanksgiving Day", emoji: "🦃", date: 11.24 },
-        { name: "Independence Day", emoji: "🇺🇸", date: 7.04 }
+        { name: "April Fool's Day", emoji: "🤣", date: 4.01 }
     ];
     const [holiday, setHoliday] = useState<Holiday>(myHolidays[0]);
 
