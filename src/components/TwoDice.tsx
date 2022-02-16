@@ -26,6 +26,7 @@ export function TwoDice(): JSX.Element {
 
     return (
         <div>
+            <h3>TwoDice</h3>
             <Container>
                 <Row>
                     <Col>

@@ -13,6 +13,7 @@ export function StartAttempt(): JSX.Element {
     };
     return (
         <div>
+            <h3>StartAttempt</h3>
             <p>Quiz Attempts: {attempts}</p>
             <Button
                 disabled={inProgress || attempts === 0}

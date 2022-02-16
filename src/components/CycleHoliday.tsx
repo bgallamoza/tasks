@@ -45,6 +45,7 @@ export function CycleHoliday(): JSX.Element {
     };
     return (
         <div>
+            <h3>CycleHoliday</h3>
             <p>Current Holiday: {holiday.emoji}</p>
             <p>({holiday.name})</p>
             <Button onClick={() => getNextHoliday("name")}>

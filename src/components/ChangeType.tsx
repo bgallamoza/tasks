@@ -13,6 +13,7 @@ export function ChangeType(): JSX.Element {
     };
     return (
         <div>
+            <h3>ChangeType</h3>
             <Button onClick={toggleType}>Change Type</Button>
             {
                 <div>
