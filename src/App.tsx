@@ -1,6 +1,4 @@
 import React from "react";
-import { Button, Container, Row } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
 import pfp from "./pfp.jpg";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
