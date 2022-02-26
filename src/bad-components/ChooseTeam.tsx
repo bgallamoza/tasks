@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 
 const PEOPLE = [
