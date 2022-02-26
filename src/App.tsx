@@ -24,11 +24,11 @@ function App(): JSX.Element {
             <hr></hr>
             <DoubleHalf></DoubleHalf>
             <hr></hr>
-            {/* <ChooseTeam></ChooseTeam>
+            <ChooseTeam></ChooseTeam>
             <hr></hr>
-            <ColoredBox></ColoredBox>
+            {/* <ColoredBox></ColoredBox> */}
             <hr></hr>
-            <ShoveBox></ShoveBox> */}
+            {/* <ShoveBox></ShoveBox> */}
             <hr></hr>
             <Counter></Counter>
             <hr />
