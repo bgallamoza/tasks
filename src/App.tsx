@@ -28,7 +28,7 @@ function App(): JSX.Element {
             <hr></hr>
             <ColoredBox></ColoredBox>
             <hr></hr>
-            {/* <ShoveBox></ShoveBox> */}
+            <ShoveBox></ShoveBox>
             <hr></hr>
             <Counter></Counter>
             <hr />
