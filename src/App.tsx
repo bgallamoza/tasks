@@ -22,13 +22,13 @@ function App(): JSX.Element {
                 </p>
             </header>
             <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
+            <DoubleHalf></DoubleHalf>
             <hr></hr>
-            <ChooseTeam></ChooseTeam>
+            {/* <ChooseTeam></ChooseTeam>
             <hr></hr>
             <ColoredBox></ColoredBox>
             <hr></hr>
-            <ShoveBox></ShoveBox>
+            <ShoveBox></ShoveBox> */}
             <hr></hr>
             <Counter></Counter>
             <hr />
