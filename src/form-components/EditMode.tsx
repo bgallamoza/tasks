@@ -6,7 +6,7 @@ type ChangeEvent = React.ChangeEvent<
 >;
 
 export function EditMode(): JSX.Element {
-    const [editMode, setEditMode] = useState<boolean>(true);
+    const [editMode, setEditMode] = useState<boolean>(false);
     const [name, setName] = useState<string>("Your Name");
     const [isStudent, setIsStudent] = useState<boolean>(true);
 

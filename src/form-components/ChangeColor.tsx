@@ -37,7 +37,12 @@ export function ChangeColor(): JSX.Element {
             )}
             <div>
                 You have chosen{" "}
-                <a style={{ backgroundColor: textColor }}>{textColor}</a>
+                <a
+                    data-testid="colored-box"
+                    style={{ backgroundColor: textColor }}
+                >
+                    {textColor}
+                </a>
             </div>
         </div>
     );
