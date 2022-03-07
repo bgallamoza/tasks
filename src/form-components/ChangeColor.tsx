@@ -13,12 +13,26 @@ const colors = [
     "black"
 ];
 
-export function ChangeColor(): JSX.Element {
-    const [textColor, setTextColor] = useState<string>(colors[0]);
-
+function ColoredText({ textColor }: { textColor: string }): JSX.Element {
     return (
         <div>
-            <h3>Change Color</h3>
+            You have chosen{" "}
+            <a data-testid="colored-box" style={{ backgroundColor: textColor }}>
+                {textColor}
+            </a>
+        </div>
+    );
+}
+
+function ColorOptions({
+    textColor,
+    setTextColor
+}: {
+    textColor: string;
+    setTextColor: (color: string) => void;
+}): JSX.Element {
+    return (
+        <div>
             {colors.map(
                 (color: string): JSX.Element => (
                     <Form.Check
@@ -35,15 +49,18 @@ export function ChangeColor(): JSX.Element {
                     />
                 )
             )}
-            <div>
-                You have chosen{" "}
-                <a
-                    data-testid="colored-box"
-                    style={{ backgroundColor: textColor }}
-                >
-                    {textColor}
-                </a>
-            </div>
+        </div>
+    );
+}
+
+export function ChangeColor(): JSX.Element {
+    const [textColor, setTextColor] = useState<string>(colors[0]);
+
+    return (
+        <div>
+            <h3>Change Color</h3>
+            <ColorOptions textColor={textColor} setTextColor={setTextColor} />
+            <ColoredText textColor={textColor} />
         </div>
     );
 }
