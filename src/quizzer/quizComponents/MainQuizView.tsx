@@ -95,6 +95,7 @@ export function MainQuizView({
                 <EditQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
             </div>
             <br></br>
+            <p>{"Don't see your quiz? Make a new one:"}</p>
             <div>
                 <NewQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
             </div>
