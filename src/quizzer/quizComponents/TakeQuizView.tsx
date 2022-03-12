@@ -27,7 +27,7 @@ export function TakeQuizView({
 }): JSX.Element {
     return (
         <div>
-            <h4>Now Taking Quiz</h4>
+            <h4>{selectedQuiz.title}</h4>
             <div>
                 <ExitQuizButton setMode={setMode} />
             </div>

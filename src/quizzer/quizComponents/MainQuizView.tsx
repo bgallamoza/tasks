@@ -11,20 +11,27 @@ function QuizList({
     selectedQuiz: Quiz;
     setSelectedQuiz: (newQuiz: Quiz) => void;
 }): JSX.Element {
-    // function updateSelection(event: React.ChangeEvent<HTMLSelectElement>) {
-    //     setSelectedQuiz(event.target.value);
-    // }
+    function updateSelection(event: React.ChangeEvent<HTMLSelectElement>) {
+        const id = parseInt(event.target.value);
+        console.log(id);
+        console.log(quizzes[id]);
+        setSelectedQuiz(quizzes[id]);
+    }
 
     return (
         <div>
-            {/* <Form.Group controlId="quizList">
-                <Form.Label>Please choose a Quiz</Form.Label>
-                <Form.Select value={selectedQuiz} onChange={updateSelection}>
-                    <option value="happy">Happy</option>
-                    <option value="sad">Sad</option>
-                    <option value="angry">Angry</option>
+            <Form.Group controlId="quizList">
+                <Form.Select value={selectedQuiz.id} onChange={updateSelection}>
+                    {quizzes.map(
+                        (q: Quiz): JSX.Element => (
+                            <option key={q.id} value={q.id}>
+                                {q.title}
+                            </option>
+                        )
+                    )}
                 </Form.Select>
-            </Form.Group> */}
+            </Form.Group>
+            <p>{selectedQuiz.description}</p>
         </div>
     );
 }

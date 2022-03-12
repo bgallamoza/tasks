@@ -28,6 +28,10 @@ export function EditQuizView({
     return (
         <div>
             <h4>Quiz Editor</h4>
+            <h5>
+                NOW EDITING:<br></br>
+                {selectedQuiz.title}
+            </h5>
             <div>
                 <ExitEditButton setMode={setMode} />
             </div>

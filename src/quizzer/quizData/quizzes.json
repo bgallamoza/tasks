@@ -1,8 +1,8 @@
 [
     {
         "id": 0,
-        "title": "Math Problems",
-        "description": "Basic grade school math problems.",
+        "title": "Addition/Subtraction Problems",
+        "description": "Basic elementary addition and subtraction problems.",
         "length": 2,
         "questions": [
             {
@@ -21,6 +21,34 @@
                 "body": "What is 5-5?",
                 "type": "multiple_choice_question",
                 "options": ["5", "6", "0"],
+                "expected": "0",
+                "points": 5,
+                "published": true
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "title": "Multiplication/Division Problems",
+        "description": "Basic elementary multiplication and division problems.",
+        "length": 2,
+        "questions": [
+            {
+                "id": 0,
+                "name": "Multiplication",
+                "body": "What is 2 * 6?",
+                "type": "short_answer_question",
+                "options": [],
+                "expected": "12",
+                "points": 5,
+                "published": true
+            },
+            {
+                "id": 1,
+                "name": "Division",
+                "body": "What is 20/4?",
+                "type": "multiple_choice_question",
+                "options": ["7", "5", "0"],
                 "expected": "0",
                 "points": 5,
                 "published": true
