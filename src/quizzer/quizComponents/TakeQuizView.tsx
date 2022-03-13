@@ -23,6 +23,7 @@ function QuestionOptions({ question }: { question: Question }): JSX.Element {
             <div>
                 {" "}
                 <Form.Control value={answer} onChange={updateAnswer} />
+                {question.expected === answer ? "CORRECT ✔️" : "WRONG ❌"}
             </div>
         );
     } else {
@@ -42,6 +43,7 @@ function QuestionOptions({ question }: { question: Question }): JSX.Element {
                         />
                     )
                 )}
+                {question.expected === answer ? "CORRECT ✔️" : "WRONG ❌"}
             </div>
         );
     }
