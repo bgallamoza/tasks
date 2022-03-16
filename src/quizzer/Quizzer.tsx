@@ -7,14 +7,6 @@ import { Quiz } from "../interfaces/quiz";
 import { Question, QuestionType } from "../interfaces/question";
 import quizData from "./quizData/quizzes.json";
 
-const NO_SELECTED_QUIZ: Quiz = {
-    id: -1,
-    title: "None",
-    description: "",
-    length: 0,
-    questions: []
-};
-
 const QUIZZES: Quiz[] = quizData.map(
     (quiz): Quiz => ({
         ...quiz,
@@ -46,7 +38,6 @@ function CurrentView({
     if (mode === "edit") {
         return (
             <EditQuizView
-                mode={mode}
                 setMode={setMode}
                 quizzes={quizzes}
                 setQuizzes={setQuizzes}
@@ -66,23 +57,12 @@ function CurrentView({
             />
         );
     } else if (mode === "take") {
-        return (
-            <TakeQuizView
-                mode={mode}
-                setMode={setMode}
-                quizzes={quizzes}
-                setQuizzes={setQuizzes}
-                selectedQuiz={selectedQuiz}
-                setSelectedQuiz={setSelectedQuiz}
-            />
-        );
+        return <TakeQuizView setMode={setMode} selectedQuiz={selectedQuiz} />;
     }
     return (
         <MainQuizView
-            mode={mode}
             setMode={setMode}
             quizzes={quizzes}
-            setQuizzes={setQuizzes}
             selectedQuiz={selectedQuiz}
             setSelectedQuiz={setSelectedQuiz}
         />
@@ -92,9 +72,7 @@ function CurrentView({
 export function Quizzer(): JSX.Element {
     const [mode, setMode] = useState<string>("main");
     const [quizzes, setQuizzes] = useState<Quiz[]>(QUIZZES);
-    const [selectedQuiz, setSelectedQuiz] = useState<Quiz>(
-        quizzes.length > 0 ? QUIZZES[0] : NO_SELECTED_QUIZ
-    );
+    const [selectedQuiz, setSelectedQuiz] = useState<Quiz>(QUIZZES[0]);
 
     return (
         <div>

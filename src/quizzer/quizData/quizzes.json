@@ -49,9 +49,19 @@
                 "body": "What is 20/4?",
                 "type": "multiple_choice_question",
                 "options": ["7", "5", "0"],
-                "expected": "0",
+                "expected": "5",
                 "points": 5,
                 "published": true
+            },
+            {
+                "id": 2,
+                "name": "Multiplication/Division",
+                "body": "What is 5*20/4?",
+                "type": "multiple_choice_question",
+                "options": ["25", "5", "30"],
+                "expected": "25",
+                "points": 5,
+                "published": false
             }
         ]
     }

@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Quiz } from "../../interfaces/quiz";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { ModifyQuizViewHelper } from "./ModifyQuizViewHelper";
 
 function ExitEditButton({
     setMode
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("main")}>Cancel Edit</Button>;
+    return <Button onClick={() => setMode("main")}>Exit Editor</Button>;
 }
 
 export function EditQuizView({
-    mode,
     setMode,
     quizzes,
     setQuizzes,
     selectedQuiz,
     setSelectedQuiz
 }: {
-    mode: string;
     setMode: (newMode: string) => void;
     quizzes: Quiz[];
     setQuizzes: (newQuizzes: Quiz[]) => void;
@@ -32,9 +31,14 @@ export function EditQuizView({
                 NOW EDITING:<br></br>
                 {selectedQuiz.title}
             </h5>
-            <div>
-                <ExitEditButton setMode={setMode} />
-            </div>
+            <ModifyQuizViewHelper
+                quizzes={quizzes}
+                setQuizzes={setQuizzes}
+                setSelectedQuiz={setSelectedQuiz}
+                selectedQuiz={selectedQuiz}
+            />
+            <br></br>
+            <ExitEditButton setMode={setMode} />
         </div>
     );
 }

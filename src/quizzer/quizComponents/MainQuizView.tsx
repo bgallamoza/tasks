@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Quiz } from "../../interfaces/quiz";
 import { Button, Form } from "react-bootstrap";
 
@@ -37,47 +37,37 @@ function QuizList({
 }
 
 function TakeQuizButton({
-    selectedQuiz,
     setMode
 }: {
-    selectedQuiz: Quiz;
     setMode: (newMode: string) => void;
 }): JSX.Element {
     return <Button onClick={() => setMode("take")}>Take Quiz</Button>;
 }
 
 function EditQuizButton({
-    selectedQuiz,
     setMode
 }: {
-    selectedQuiz: Quiz;
     setMode: (newMode: string) => void;
 }): JSX.Element {
     return <Button onClick={() => setMode("edit")}>Edit Quiz</Button>;
 }
 
 function NewQuizButton({
-    selectedQuiz,
     setMode
 }: {
-    selectedQuiz: Quiz;
     setMode: (newMode: string) => void;
 }): JSX.Element {
     return <Button onClick={() => setMode("new")}>+ New Quiz</Button>;
 }
 
 export function MainQuizView({
-    mode,
     setMode,
     quizzes,
-    setQuizzes,
     selectedQuiz,
     setSelectedQuiz
 }: {
-    mode: string;
     setMode: (newMode: string) => void;
     quizzes: Quiz[];
-    setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
     setSelectedQuiz: (newQuiz: Quiz) => void;
 }): JSX.Element {
@@ -90,14 +80,14 @@ export function MainQuizView({
                 setSelectedQuiz={setSelectedQuiz}
             />
             <div>
-                <TakeQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
+                <TakeQuizButton setMode={setMode} />
                 {"   "}
-                <EditQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
+                <EditQuizButton setMode={setMode} />
             </div>
             <br></br>
             <p>{"Don't see your quiz? Make a new one:"}</p>
             <div>
-                <NewQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
+                <NewQuizButton setMode={setMode} />
             </div>
         </div>
     );

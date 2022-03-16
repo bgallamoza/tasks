@@ -50,10 +50,34 @@ function QuestionOptions({ question }: { question: Question }): JSX.Element {
 }
 
 function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
+    const [questions, setQuestions] = useState<Question[]>(quiz.questions);
+    const [isOnlyPublished, setIsOnlyPublished] = useState<boolean>(false);
+
+    function updatePublished(event: React.ChangeEvent<HTMLInputElement>) {
+        const onlyPublished: boolean = event.target.checked;
+        setIsOnlyPublished(onlyPublished);
+        if (onlyPublished) {
+            setQuestions(
+                quiz.questions.filter((q: Question): boolean => q.published)
+            );
+        } else {
+            setQuestions(quiz.questions);
+        }
+    }
+
     return (
         <div>
+            <div>
+                <Form.Check
+                    type="checkbox"
+                    id="is-published-check"
+                    label="Only show published questions"
+                    checked={isOnlyPublished}
+                    onChange={updatePublished}
+                />
+            </div>
             <ol>
-                {quiz.questions.map(
+                {questions.map(
                     (q: Question): JSX.Element => (
                         <li key={q.id}>
                             <p>
@@ -74,19 +98,11 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
 }
 
 export function TakeQuizView({
-    mode,
     setMode,
-    quizzes,
-    setQuizzes,
-    selectedQuiz,
-    setSelectedQuiz
+    selectedQuiz
 }: {
-    mode: string;
     setMode: (newMode: string) => void;
-    quizzes: Quiz[];
-    setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
-    setSelectedQuiz: (newQuiz: Quiz) => void;
 }): JSX.Element {
     return (
         <div>
