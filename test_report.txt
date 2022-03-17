@@ -25,7 +25,7 @@ PASS src/App.test.tsx
 -----------------------------|---------|----------|---------|---------|-------------------
 File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -----------------------------|---------|----------|---------|---------|-------------------
-All files                    |   70.45 |    71.79 |   69.63 |   70.87 |                   
+All files                    |   68.67 |    70.58 |   68.55 |   69.17 |                   
  src                         |   97.36 |    97.43 |   98.21 |   98.46 |                   
   App.tsx                    |      75 |      100 |   66.66 |      75 | 29                
   functions.ts               |     100 |      100 |     100 |     100 |                   
@@ -55,19 +55,19 @@ All files                    |   70.45 |    71.79 |   69.63 |   70.87 |
   quiz.ts                    |       0 |        0 |       0 |       0 |                   
   quizHolder.ts              |       0 |        0 |       0 |       0 |                   
  src/quizzer                 |      80 |       50 |     100 |      80 |                   
-  Quizzer.tsx                |      80 |       50 |     100 |      80 | 48,59,70          
- src/quizzer/quizComponents  |    9.67 |        0 |   10.93 |   10.46 |                   
+  Quizzer.tsx                |      80 |       50 |     100 |      80 | 49,60,71          
+ src/quizzer/quizComponents  |    8.91 |        0 |   10.44 |    9.67 |                   
   Checklist.tsx              |     100 |      100 |     100 |     100 |                   
   EditQuizView.tsx           |    9.09 |        0 |       0 |   11.11 | 19-63             
   MainQuizView.tsx           |   46.15 |      100 |      60 |      50 | 15-18,49,66       
   ModifyQuestionList.tsx     |    4.76 |        0 |       0 |       5 | 29-161            
   ModifyQuizViewHelper.tsx   |       0 |        0 |       0 |       0 | 23-74             
   NewQuizView.tsx            |       0 |      100 |       0 |       0 | 11-29             
-  TakeQuizView.tsx           |       0 |        0 |       0 |       0 | 12-187            
+  TakeQuizView.tsx           |       0 |        0 |       0 |       0 | 12-202            
 -----------------------------|---------|----------|---------|---------|-------------------
 
 Test Suites: 20 passed, 20 total
 Tests:       126 passed, 126 total
 Snapshots:   0 total
-Time:        11.266 s
+Time:        11.461 s
 Ran all test suites.
