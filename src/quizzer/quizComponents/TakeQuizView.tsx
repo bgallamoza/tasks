@@ -14,43 +14,39 @@ function ExitQuizButton({
 
 function ClearAnswersButton({
     quiz,
-    setResetAnswer
+    setResetAnswer,
+    setTotalPoints
 }: {
     quiz: Quiz;
     setResetAnswer: (newAnswers: Answer[]) => void;
+    setTotalPoints: (newAnswers: number) => void;
 }): JSX.Element {
-    return (
-        <Button
-            onClick={() =>
-                setResetAnswer(
-                    quiz.questions.map(
-                        (q: Question): Answer => ({
-                            questionId: q.id,
-                            text: "",
-                            submitted: false,
-                            correct: false,
-                            pointsEarned: 0
-                        })
-                    )
-                )
-            }
-        >
-            Reset Answers
-        </Button>
-    );
+    function ResetAnswerInfo() {
+        setResetAnswer(
+            quiz.questions.map(
+                (q: Question): Answer => ({
+                    questionId: q.id,
+                    text: "",
+                    submitted: false,
+                    correct: false,
+                    pointsEarned: 0
+                })
+            )
+        );
+        setTotalPoints(0);
+    }
+    return <Button onClick={() => ResetAnswerInfo()}>Reset Answers</Button>;
 }
 
 function QuestionOptions({
     question,
     answers,
     setAnswers,
-    totalPoints,
     setTotalPoints
 }: {
     question: Question;
     answers: Answer[];
     setAnswers: (newAnswers: Answer[]) => void;
-    totalPoints: number;
     setTotalPoints: (newPoints: number) => void;
 }): JSX.Element {
     const currentAnswer: Answer = answers.filter(
@@ -177,7 +173,6 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                                     question={q}
                                     answers={answers}
                                     setAnswers={setAnswers}
-                                    totalPoints={totalPoints}
                                     setTotalPoints={setTotalPoints}
                                 />
                             </div>
@@ -188,7 +183,11 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                 )}
             </ol>
             <p>Total points earned: {totalPoints}</p>
-            <ClearAnswersButton quiz={quiz} setResetAnswer={setAnswers} />
+            <ClearAnswersButton
+                quiz={quiz}
+                setResetAnswer={setAnswers}
+                setTotalPoints={setTotalPoints}
+            />
         </div>
     );
 }
