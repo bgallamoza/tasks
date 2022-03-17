@@ -31,6 +31,13 @@ function SaveChangesButton({
                 )
             );
             setSelectedQuiz(editedQuiz);
+        } else {
+            const newQuiz: Quiz = {
+                ...quizInfo,
+                id: quizzes[quizzes.length - 1].id + 1,
+                questions: newQuestions
+            };
+            setQuizzes([...quizzes, newQuiz]);
         }
     }
 

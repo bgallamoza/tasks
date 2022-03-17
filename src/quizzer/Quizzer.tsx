@@ -19,6 +19,14 @@ const QUIZZES: Quiz[] = quizData.map(
     })
 );
 
+const NEW_QUIZ: Quiz = {
+    id: 10,
+    title: "New Quiz",
+    description: "",
+    max_question_id: 0,
+    questions: []
+};
+
 function CurrentView({
     mode,
     setMode,
@@ -53,7 +61,7 @@ function CurrentView({
                 setMode={setMode}
                 quizzes={quizzes}
                 setQuizzes={setQuizzes}
-                selectedQuiz={selectedQuiz}
+                selectedQuiz={{ ...NEW_QUIZ }}
                 setSelectedQuiz={setSelectedQuiz}
             />
         );
@@ -86,6 +94,7 @@ export function Quizzer(): JSX.Element {
                 selectedQuiz={selectedQuiz}
                 setSelectedQuiz={setSelectedQuiz}
             />
+            <div></div>
         </div>
     );
 }

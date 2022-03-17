@@ -37,19 +37,37 @@ function QuizList({
 }
 
 function TakeQuizButton({
-    setMode
+    setMode,
+    selectedQuiz
 }: {
     setMode: (newMode: string) => void;
+    selectedQuiz: Quiz;
 }): JSX.Element {
-    return <Button onClick={() => setMode("take")}>Take Quiz</Button>;
+    return (
+        <Button
+            disabled={isNaN(selectedQuiz.id)}
+            onClick={() => setMode("take")}
+        >
+            Take Quiz
+        </Button>
+    );
 }
 
 function EditQuizButton({
-    setMode
+    setMode,
+    selectedQuiz
 }: {
     setMode: (newMode: string) => void;
+    selectedQuiz: Quiz;
 }): JSX.Element {
-    return <Button onClick={() => setMode("edit")}>Edit Quiz</Button>;
+    return (
+        <Button
+            disabled={isNaN(selectedQuiz.id)}
+            onClick={() => setMode("edit")}
+        >
+            Edit Quiz
+        </Button>
+    );
 }
 
 function NewQuizButton({
@@ -80,9 +98,9 @@ export function MainQuizView({
                 setSelectedQuiz={setSelectedQuiz}
             />
             <div>
-                <TakeQuizButton setMode={setMode} />
+                <TakeQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
                 {"   "}
-                <EditQuizButton setMode={setMode} />
+                <EditQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
             </div>
             <br></br>
             <p>{"Don't see your quiz? Make a new one:"}</p>

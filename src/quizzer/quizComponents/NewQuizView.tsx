@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Quiz } from "../../interfaces/quiz";
 import { Button, Form } from "react-bootstrap";
+import { ModifyQuizViewHelper } from "./ModifyQuizViewHelper";
 
 function ExitNewButton({
     setMode
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("main")}>Cancel Creation</Button>;
+    return <Button onClick={() => setMode("main")}>Exit Quiz Creator</Button>;
 }
 
 export function NewQuizView({
@@ -28,6 +29,13 @@ export function NewQuizView({
     return (
         <div>
             <h4>Quiz Creator</h4>
+            <ModifyQuizViewHelper
+                mode={mode}
+                quizzes={quizzes}
+                setQuizzes={setQuizzes}
+                setSelectedQuiz={setSelectedQuiz}
+                selectedQuiz={selectedQuiz}
+            />
             <div>
                 <ExitNewButton setMode={setMode} />
             </div>
