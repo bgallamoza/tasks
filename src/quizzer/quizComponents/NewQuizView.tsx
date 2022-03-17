@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Quiz } from "../../interfaces/quiz";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { ModifyQuizViewHelper } from "./ModifyQuizViewHelper";
 
 function ExitNewButton({

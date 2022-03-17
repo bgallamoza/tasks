@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Quiz } from "../../interfaces/quiz";
+import { Answer } from "../../interfaces/answer";
 import { Question } from "../../interfaces/question";
 import { Button, Form } from "react-bootstrap";
 
@@ -11,39 +12,83 @@ function ExitQuizButton({
     return <Button onClick={() => setMode("main")}>Exit Quiz</Button>;
 }
 
-// function ClearAnswersButton({
-//     questions,
-//     setQuestions
-// }: {
-//     questions: Question[];
-//     setQuestions: (newQuestions: Question[]) => void;
-// }): JSX.Element {
-//     return (
-//         <Button
-//             onClick={() =>
-//                 setQuestions(
-//                     questions.map((q: Question): Question => ({ ...q }))
-//                 )
-//             }
-//         >
-//             Exit Quiz
-//         </Button>
-//     );
-// }
+function ClearAnswersButton({
+    quiz,
+    setResetAnswer
+}: {
+    quiz: Quiz;
+    setResetAnswer: (newAnswers: Answer[]) => void;
+}): JSX.Element {
+    return (
+        <Button
+            onClick={() =>
+                setResetAnswer(
+                    quiz.questions.map(
+                        (q: Question): Answer => ({
+                            questionId: q.id,
+                            text: "",
+                            submitted: false,
+                            correct: false
+                        })
+                    )
+                )
+            }
+        >
+            Reset Answers
+        </Button>
+    );
+}
 
-function QuestionOptions({ question }: { question: Question }): JSX.Element {
-    const [answer, setAnswer] = useState<string>("");
+function QuestionOptions({
+    question,
+    answers,
+    setAnswers
+}: {
+    question: Question;
+    answers: Answer[];
+    setAnswers: (newAnswers: Answer[]) => void;
+}): JSX.Element {
+    const currentAnswer: Answer = answers.filter(
+        (a: Answer): boolean => question.id === a.questionId
+    )[0];
 
     function updateAnswer(event: React.ChangeEvent<HTMLInputElement>) {
-        setAnswer(event.target.value);
+        function newAnswer(
+            ans: Answer,
+            event: React.ChangeEvent<HTMLInputElement>
+        ): Answer {
+            return {
+                ...ans,
+                submitted: true,
+                correct: event.target.value === question.expected,
+                text: event.target.value
+            };
+        }
+
+        setAnswers(
+            answers.map(
+                (a: Answer): Answer =>
+                    a.questionId === question.id ? newAnswer(a, event) : a
+            )
+        );
+    }
+
+    function feedback(): string {
+        if (!currentAnswer.submitted) {
+            return "Unanswered";
+        }
+        return currentAnswer.correct ? "CORRECT ✔️" : "WRONG ❌";
     }
 
     if (question.type === "short_answer_question") {
         return (
             <div>
                 {" "}
-                <Form.Control value={answer} onChange={updateAnswer} />
-                {question.expected === answer ? "CORRECT ✔️" : "WRONG ❌"}
+                <Form.Control
+                    value={currentAnswer.text}
+                    onChange={updateAnswer}
+                />
+                {feedback()}
             </div>
         );
     } else {
@@ -58,12 +103,12 @@ function QuestionOptions({ question }: { question: Question }): JSX.Element {
                             id={`${question.id}-${choice}`}
                             label={choice}
                             value={choice}
-                            checked={choice === answer}
-                            onChange={(e) => setAnswer(e.target.value)}
+                            checked={choice === currentAnswer.text}
+                            onChange={updateAnswer}
                         />
                     )
                 )}
-                {question.expected === answer ? "CORRECT ✔️" : "WRONG ❌"}
+                {feedback()}
             </div>
         );
     }
@@ -72,6 +117,16 @@ function QuestionOptions({ question }: { question: Question }): JSX.Element {
 function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
     const [questions, setQuestions] = useState<Question[]>(quiz.questions);
     const [isOnlyPublished, setIsOnlyPublished] = useState<boolean>(false);
+    const [answers, setAnswers] = useState<Answer[]>(
+        quiz.questions.map(
+            (q: Question): Answer => ({
+                questionId: q.id,
+                text: "",
+                submitted: false,
+                correct: false
+            })
+        )
+    );
 
     function updatePublished(event: React.ChangeEvent<HTMLInputElement>) {
         const onlyPublished: boolean = event.target.checked;
@@ -105,7 +160,11 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                             </p>
                             <p>{q.body}</p>
                             <div>
-                                <QuestionOptions question={q} />
+                                <QuestionOptions
+                                    question={q}
+                                    answers={answers}
+                                    setAnswers={setAnswers}
+                                />
                             </div>
                             <p>{q.points} Points</p>
                             <hr></hr>
@@ -113,6 +172,7 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                     )
                 )}
             </ol>
+            <ClearAnswersButton quiz={quiz} setResetAnswer={setAnswers} />
         </div>
     );
 }
