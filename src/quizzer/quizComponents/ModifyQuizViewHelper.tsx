@@ -9,13 +9,26 @@ interface reduceAction {
     data: string;
 }
 
+const DUMMY_QUESTION: Question = {
+    id: 0,
+    name: "New Question",
+    body: "",
+    type: "short_answer_question" as QuestionType,
+    options: [],
+    expected: "",
+    points: 0,
+    published: false
+};
+
 function SaveChangesButton({
+    mode,
     quizzes,
     setQuizzes,
     selectedQuiz,
     setSelectedQuiz,
     newQuestions
 }: {
+    mode: string;
     quizzes: Quiz[];
     setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
@@ -23,15 +36,19 @@ function SaveChangesButton({
     newQuestions: Question[];
 }): JSX.Element {
     function saveChanges() {
-        setQuizzes(
-            quizzes.map(
-                (q: Quiz): Quiz =>
-                    q.id === selectedQuiz.id
-                        ? { ...q, questions: newQuestions }
-                        : q
-            )
-        );
-        setSelectedQuiz({ ...selectedQuiz, questions: newQuestions });
+        if (mode === "edit") {
+            const editedQuiz: Quiz = {
+                ...selectedQuiz,
+                questions: newQuestions
+            };
+            setQuizzes(
+                quizzes.map(
+                    (q: Quiz): Quiz =>
+                        q.id === selectedQuiz.id ? editedQuiz : q
+                )
+            );
+            setSelectedQuiz(editedQuiz);
+        }
     }
 
     return <Button onClick={() => saveChanges()}>Save Changes</Button>;
@@ -83,16 +100,22 @@ function quizReducer(state: Question[], action: reduceAction): Question[] {
                     ? { ...q, type: action.data as QuestionType }
                     : q
         );
+    } else if (action.type == "delete") {
+        return state.filter((q: Question): boolean => q.id !== action.id);
+    } else if (action.type == "add") {
+        return [...state, { ...DUMMY_QUESTION }];
     }
     return [];
 }
 
 export function ModifyQuizViewHelper({
+    mode,
     quizzes,
     setQuizzes,
     selectedQuiz,
     setSelectedQuiz
 }: {
+    mode: string;
     quizzes: Quiz[];
     setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
@@ -192,17 +215,33 @@ export function ModifyQuizViewHelper({
                                     )
                                 }
                             />
+                            <Button
+                                onClick={() => handleQuestions(q, "delete", "")}
+                            >
+                                Delete Question
+                            </Button>
                         </li>
                     )
                 )}
             </ol>
-            <SaveChangesButton
-                quizzes={quizzes}
-                setQuizzes={setQuizzes}
-                selectedQuiz={selectedQuiz}
-                setSelectedQuiz={setSelectedQuiz}
-                newQuestions={questions}
-            />
+            <div>
+                <Button
+                    onClick={() => handleQuestions(DUMMY_QUESTION, "add", "")}
+                >
+                    Add New Question
+                </Button>
+            </div>
+            <br></br>
+            <div>
+                <SaveChangesButton
+                    mode={mode}
+                    quizzes={quizzes}
+                    setQuizzes={setQuizzes}
+                    selectedQuiz={selectedQuiz}
+                    setSelectedQuiz={setSelectedQuiz}
+                    newQuestions={questions}
+                />
+            </div>
         </div>
     );
 }

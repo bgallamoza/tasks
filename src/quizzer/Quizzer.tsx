@@ -38,6 +38,7 @@ function CurrentView({
     if (mode === "edit") {
         return (
             <EditQuizView
+                mode={mode}
                 setMode={setMode}
                 quizzes={quizzes}
                 setQuizzes={setQuizzes}

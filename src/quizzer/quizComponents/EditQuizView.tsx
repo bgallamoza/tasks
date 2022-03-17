@@ -12,12 +12,14 @@ function ExitEditButton({
 }
 
 export function EditQuizView({
+    mode,
     setMode,
     quizzes,
     setQuizzes,
     selectedQuiz,
     setSelectedQuiz
 }: {
+    mode: string;
     setMode: (newMode: string) => void;
     quizzes: Quiz[];
     setQuizzes: (newQuizzes: Quiz[]) => void;
@@ -32,6 +34,7 @@ export function EditQuizView({
                 {selectedQuiz.title}
             </h5>
             <ModifyQuizViewHelper
+                mode={mode}
                 quizzes={quizzes}
                 setQuizzes={setQuizzes}
                 setSelectedQuiz={setSelectedQuiz}
