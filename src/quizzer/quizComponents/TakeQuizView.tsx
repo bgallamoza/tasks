@@ -28,7 +28,8 @@ function ClearAnswersButton({
                             questionId: q.id,
                             text: "",
                             submitted: false,
-                            correct: false
+                            correct: false,
+                            pointsEarned: 0
                         })
                     )
                 )
@@ -42,34 +43,44 @@ function ClearAnswersButton({
 function QuestionOptions({
     question,
     answers,
-    setAnswers
+    setAnswers,
+    totalPoints,
+    setTotalPoints
 }: {
     question: Question;
     answers: Answer[];
     setAnswers: (newAnswers: Answer[]) => void;
+    totalPoints: number;
+    setTotalPoints: (newPoints: number) => void;
 }): JSX.Element {
     const currentAnswer: Answer = answers.filter(
         (a: Answer): boolean => question.id === a.questionId
     )[0];
 
-    function updateAnswer(event: React.ChangeEvent<HTMLInputElement>) {
-        function newAnswer(
+    function updateAnswers(event: React.ChangeEvent<HTMLInputElement>) {
+        function updateCurrentAnswer(
             ans: Answer,
             event: React.ChangeEvent<HTMLInputElement>
         ): Answer {
+            const isCorrect: boolean = event.target.value === question.expected;
             return {
                 ...ans,
                 submitted: true,
-                correct: event.target.value === question.expected,
-                text: event.target.value
+                correct: isCorrect,
+                text: event.target.value,
+                pointsEarned: question.points * (isCorrect ? 1 : 0)
             };
         }
 
-        setAnswers(
-            answers.map(
-                (a: Answer): Answer =>
-                    a.questionId === question.id ? newAnswer(a, event) : a
-            )
+        const newAnswers: Answer[] = answers.map(
+            (a: Answer): Answer =>
+                a.questionId === question.id ? updateCurrentAnswer(a, event) : a
+        );
+        setAnswers(newAnswers);
+        setTotalPoints(
+            newAnswers
+                .map((a: Answer): number => a.pointsEarned)
+                .reduce((a, b): number => a + b, 0)
         );
     }
 
@@ -86,7 +97,7 @@ function QuestionOptions({
                 {" "}
                 <Form.Control
                     value={currentAnswer.text}
-                    onChange={updateAnswer}
+                    onChange={updateAnswers}
                 />
                 {feedback()}
             </div>
@@ -104,7 +115,7 @@ function QuestionOptions({
                             label={choice}
                             value={choice}
                             checked={choice === currentAnswer.text}
-                            onChange={updateAnswer}
+                            onChange={updateAnswers}
                         />
                     )
                 )}
@@ -117,13 +128,15 @@ function QuestionOptions({
 function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
     const [questions, setQuestions] = useState<Question[]>(quiz.questions);
     const [isOnlyPublished, setIsOnlyPublished] = useState<boolean>(false);
+    const [totalPoints, setTotalPoints] = useState<number>(0);
     const [answers, setAnswers] = useState<Answer[]>(
         quiz.questions.map(
             (q: Question): Answer => ({
                 questionId: q.id,
                 text: "",
                 submitted: false,
-                correct: false
+                correct: false,
+                pointsEarned: 0
             })
         )
     );
@@ -164,6 +177,8 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                                     question={q}
                                     answers={answers}
                                     setAnswers={setAnswers}
+                                    totalPoints={totalPoints}
+                                    setTotalPoints={setTotalPoints}
                                 />
                             </div>
                             <p>{q.points} Points</p>
@@ -172,6 +187,7 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
                     )
                 )}
             </ol>
+            <p>Total points earned: {totalPoints}</p>
             <ClearAnswersButton quiz={quiz} setResetAnswer={setAnswers} />
         </div>
     );
