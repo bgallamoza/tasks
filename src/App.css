@@ -52,8 +52,8 @@ h1 {
 }
 
 img {
-    width: calc(30% + 2vmin);
-    height: calc(30% + 2vmin);
+    width: calc(50% + 2vmin);
+    height: calc(50% + 2vmin);
 }
 
 h3 {

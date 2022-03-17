@@ -6,6 +6,7 @@ import { TakeQuizView } from "./quizComponents/TakeQuizView";
 import { Checklist } from "./quizComponents/Checklist";
 import { Quiz } from "../interfaces/quiz";
 import { Question, QuestionType } from "../interfaces/question";
+import sketch from "./img/task11_sketch.png";
 import quizData from "./quizData/quizzes.json";
 
 const QUIZZES: Quiz[] = quizData.map(
@@ -99,6 +100,7 @@ export function Quizzer(): JSX.Element {
             <div>
                 <Checklist></Checklist>
             </div>
+            <img src={sketch} alt="My task 11 sketch" />
         </div>
     );
 }
