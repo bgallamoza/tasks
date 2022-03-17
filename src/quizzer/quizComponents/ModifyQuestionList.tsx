@@ -57,11 +57,32 @@ export function ModifyQuestionList({
         }
     }
 
+    function updateOrder(currentIdx: number, action: string) {
+        const reorderedQuestions: Question[] = [...questions];
+        if (action === "up") {
+            if (currentIdx > 0) {
+                const tmp: Question = reorderedQuestions[currentIdx];
+                reorderedQuestions[currentIdx] =
+                    reorderedQuestions[currentIdx - 1];
+                reorderedQuestions[currentIdx - 1] = tmp;
+                setQuestions(reorderedQuestions);
+            }
+        } else {
+            if (currentIdx < questions.length - 1) {
+                const tmp: Question = reorderedQuestions[currentIdx];
+                reorderedQuestions[currentIdx] =
+                    reorderedQuestions[currentIdx + 1];
+                reorderedQuestions[currentIdx + 1] = tmp;
+                setQuestions(reorderedQuestions);
+            }
+        }
+    }
+
     return (
         <div>
             <ol>
                 {questions.map(
-                    (q: Question): JSX.Element => (
+                    (q: Question, idx: number): JSX.Element => (
                         <li key={q.id}>
                             <Form.Label>Question Name:</Form.Label>
                             <Form.Control
@@ -150,9 +171,27 @@ export function ModifyQuestionList({
                                     })
                                 }
                             />
-                            <Button onClick={() => deleteQuestion(q.id)}>
-                                Delete Question
-                            </Button>
+                            <div>
+                                <Button
+                                    disabled={idx === 0}
+                                    onClick={() => updateOrder(idx, "up")}
+                                >
+                                    Move Up
+                                </Button>
+                                <Button
+                                    disabled={idx === questions.length - 1}
+                                    onClick={() => updateOrder(idx, "down")}
+                                >
+                                    Move Down
+                                </Button>
+                            </div>
+                            <br></br>
+                            <div>
+                                <Button onClick={() => deleteQuestion(q.id)}>
+                                    Delete Question
+                                </Button>
+                            </div>
+                            <br></br>
                         </li>
                     )
                 )}
