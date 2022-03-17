@@ -3,6 +3,7 @@ import { NewQuizView } from "./quizComponents/NewQuizView";
 import { EditQuizView } from "./quizComponents/EditQuizView";
 import { MainQuizView } from "./quizComponents/MainQuizView";
 import { TakeQuizView } from "./quizComponents/TakeQuizView";
+import { Checklist } from "./quizComponents/Checklist";
 import { Quiz } from "../interfaces/quiz";
 import { Question, QuestionType } from "../interfaces/question";
 import quizData from "./quizData/quizzes.json";
@@ -94,7 +95,10 @@ export function Quizzer(): JSX.Element {
                 selectedQuiz={selectedQuiz}
                 setSelectedQuiz={setSelectedQuiz}
             />
-            <div></div>
+            <hr></hr>
+            <div>
+                <Checklist></Checklist>
+            </div>
         </div>
     );
 }
