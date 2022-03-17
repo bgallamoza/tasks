@@ -7,6 +7,6 @@ export interface Quiz {
     id: number;
     title: string;
     description: string;
-    length: number;
+    max_question_id: number;
     questions: Question[];
 }
