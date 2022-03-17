@@ -9,7 +9,7 @@ export function Checklist(): JSX.Element {
                     <Col>
                         <ul>
                             <li>✔️Sketch Application </li>
-                            <li>✔️Quizzes are Visible | Test:</li>
+                            <li>✔️Quizzes are Visible | Test: ✔️</li>
                             <li>✔️Short Answer and Multiple Choice | Test:</li>
                             <li>✔️Check Correctness | Test:</li>
                             <li>✔️Sum Points | Test:</li>
