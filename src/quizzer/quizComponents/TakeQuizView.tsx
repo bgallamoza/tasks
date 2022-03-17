@@ -11,6 +11,26 @@ function ExitQuizButton({
     return <Button onClick={() => setMode("main")}>Exit Quiz</Button>;
 }
 
+// function ClearAnswersButton({
+//     questions,
+//     setQuestions
+// }: {
+//     questions: Question[];
+//     setQuestions: (newQuestions: Question[]) => void;
+// }): JSX.Element {
+//     return (
+//         <Button
+//             onClick={() =>
+//                 setQuestions(
+//                     questions.map((q: Question): Question => ({ ...q }))
+//                 )
+//             }
+//         >
+//             Exit Quiz
+//         </Button>
+//     );
+// }
+
 function QuestionOptions({ question }: { question: Question }): JSX.Element {
     const [answer, setAnswer] = useState<string>("");
 

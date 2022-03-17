@@ -1,25 +1,8 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { Quiz } from "../../interfaces/quiz";
-import { Question, QuestionType } from "../../interfaces/question";
+import { Question } from "../../interfaces/question";
 import { Button, Form } from "react-bootstrap";
 import { ModifyQuestionList } from "./ModifyQuestionList";
-
-interface reduceAction {
-    id: number;
-    type: string;
-    data: string;
-}
-
-const DUMMY_QUESTION: Question = {
-    id: 0,
-    name: "New Question",
-    body: "",
-    type: "short_answer_question" as QuestionType,
-    options: [],
-    expected: "",
-    points: 0,
-    published: false
-};
 
 function SaveChangesButton({
     mode,
@@ -54,60 +37,6 @@ function SaveChangesButton({
     return <Button onClick={() => saveChanges()}>Save Changes</Button>;
 }
 
-function quizReducer(state: Question[], action: reduceAction): Question[] {
-    if (action.type === "name") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id ? { ...q, name: action.data } : q
-        );
-    } else if (action.type == "body") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id ? { ...q, body: action.data } : q
-        );
-    } else if (action.type == "options") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id
-                    ? { ...q, options: action.data.split("\n") }
-                    : q
-        );
-    } else if (action.type == "expected") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id ? { ...q, expected: action.data } : q
-        );
-    } else if (action.type == "points") {
-        if (!isNaN(parseInt(action.data))) {
-            return state.map(
-                (q: Question): Question =>
-                    q.id === action.id
-                        ? { ...q, points: parseInt(action.data) }
-                        : q
-            );
-        }
-    } else if (action.type == "published") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id
-                    ? { ...q, published: "true" === action.data }
-                    : q
-        );
-    } else if (action.type == "type") {
-        return state.map(
-            (q: Question): Question =>
-                q.id === action.id
-                    ? { ...q, type: action.data as QuestionType }
-                    : q
-        );
-    } else if (action.type == "delete") {
-        return state.filter((q: Question): boolean => q.id !== action.id);
-    } else if (action.type == "add") {
-        return [...state, { ...DUMMY_QUESTION }];
-    }
-    return [];
-}
-
 export function ModifyQuizViewHelper({
     mode,
     quizzes,
@@ -125,8 +54,7 @@ export function ModifyQuizViewHelper({
         ...selectedQuiz,
         questions: []
     });
-    const [questions, dispatch] = useReducer(
-        quizReducer,
+    const [questions, setQuestions] = useState<Question[]>(
         selectedQuiz.questions.map((q: Question): Question => ({ ...q }))
     );
 
@@ -141,7 +69,8 @@ export function ModifyQuizViewHelper({
             />
             <ModifyQuestionList
                 questions={questions}
-                dispatch={dispatch}
+                // dispatch={dispatch}
+                setQuestions={setQuestions}
                 quizInfo={quizInfo}
                 setQuizInfo={setQuizInfo}
             />

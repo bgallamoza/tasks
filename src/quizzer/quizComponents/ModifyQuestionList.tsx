@@ -1,13 +1,7 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import { Question, QuestionType } from "../../interfaces/question";
 import { Quiz } from "../../interfaces/quiz";
 import { Button, Form } from "react-bootstrap";
-
-interface reduceAction {
-    id: number;
-    type: string;
-    data: string;
-}
 
 const DUMMY_QUESTION: Question = {
     id: 0,
@@ -22,17 +16,45 @@ const DUMMY_QUESTION: Question = {
 
 export function ModifyQuestionList({
     questions,
-    dispatch,
+    setQuestions,
     quizInfo,
     setQuizInfo
 }: {
     questions: Question[];
-    dispatch: Dispatch<reduceAction>;
+    setQuestions: (newQuestions: Question[]) => void;
     quizInfo: Quiz;
     setQuizInfo: (newQuizInfo: Quiz) => void;
 }): JSX.Element {
-    function handleQuestions(q: Question, type: string, data: string): void {
-        dispatch({ id: q.id, type: type, data: data });
+    function deleteQuestion(id: number) {
+        setQuestions(questions.filter((q: Question): boolean => q.id !== id));
+    }
+
+    function addQuestion(id: number) {
+        setQuestions([...questions, { ...DUMMY_QUESTION, id: id + 1 }]);
+        setQuizInfo({
+            ...quizInfo,
+            max_question_id: id + 1
+        });
+    }
+
+    function updateQuestion(newQuestion: Question) {
+        setQuestions(
+            questions.map(
+                (q: Question): Question =>
+                    q.id === newQuestion.id ? newQuestion : q
+            )
+        );
+    }
+
+    function updatePoints(id: number, value: string) {
+        if (!isNaN(parseInt(value))) {
+            setQuestions(
+                questions.map(
+                    (q: Question): Question =>
+                        q.id === id ? { ...q, points: parseInt(value) } : q
+                )
+            );
+        }
     }
 
     return (
@@ -45,21 +67,31 @@ export function ModifyQuestionList({
                             <Form.Control
                                 value={q.name}
                                 onChange={(e) =>
-                                    handleQuestions(q, "name", e.target.value)
+                                    // handleQuestions(q, "name", e.target.value)
+                                    updateQuestion({
+                                        ...q,
+                                        name: e.target.value
+                                    })
                                 }
                             />
                             <Form.Label>Question Body:</Form.Label>
                             <Form.Control
                                 value={q.body}
                                 onChange={(e) =>
-                                    handleQuestions(q, "body", e.target.value)
+                                    updateQuestion({
+                                        ...q,
+                                        body: e.target.value
+                                    })
                                 }
                             />
                             <Form.Label>Question Type</Form.Label>
                             <Form.Select
                                 value={q.type.toString()}
                                 onChange={(e) =>
-                                    handleQuestions(q, "type", e.target.value)
+                                    updateQuestion({
+                                        ...q,
+                                        type: e.target.value as QuestionType
+                                    })
                                 }
                             >
                                 <option value="multiple_choice_question">
@@ -80,11 +112,11 @@ export function ModifyQuestionList({
                                         rows={q.options.length + 2}
                                         value={q.options.join("\n")}
                                         onChange={(e) =>
-                                            handleQuestions(
-                                                q,
-                                                "options",
-                                                e.target.value
-                                            )
+                                            updateQuestion({
+                                                ...q,
+                                                options:
+                                                    e.target.value.split("\n")
+                                            })
                                         }
                                     />
                                 </>
@@ -93,18 +125,17 @@ export function ModifyQuestionList({
                             <Form.Control
                                 value={q.expected}
                                 onChange={(e) =>
-                                    handleQuestions(
-                                        q,
-                                        "expected",
-                                        e.target.value
-                                    )
+                                    updateQuestion({
+                                        ...q,
+                                        expected: e.target.value
+                                    })
                                 }
                             />
                             <Form.Label>Question Points</Form.Label>
                             <Form.Control
                                 value={q.points}
                                 onChange={(e) =>
-                                    handleQuestions(q, "value", e.target.value)
+                                    updatePoints(q.id, e.target.value)
                                 }
                             />
                             <Form.Check
@@ -113,16 +144,13 @@ export function ModifyQuestionList({
                                 label="Publish Question"
                                 checked={q.published}
                                 onChange={(e) =>
-                                    handleQuestions(
-                                        q,
-                                        "expected",
-                                        String(e.target.value)
-                                    )
+                                    updateQuestion({
+                                        ...q,
+                                        published: e.target.checked
+                                    })
                                 }
                             />
-                            <Button
-                                onClick={() => handleQuestions(q, "delete", "")}
-                            >
+                            <Button onClick={() => deleteQuestion(q.id)}>
                                 Delete Question
                             </Button>
                         </li>
@@ -130,9 +158,7 @@ export function ModifyQuestionList({
                 )}
             </ol>
             <div>
-                <Button
-                    onClick={() => handleQuestions(DUMMY_QUESTION, "add", "")}
-                >
+                <Button onClick={() => addQuestion(quizInfo.max_question_id)}>
                     Add New Question
                 </Button>
             </div>
