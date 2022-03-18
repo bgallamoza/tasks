@@ -68,6 +68,24 @@ describe("ModifyQuestionList Tests", () => {
 
         expect(screen.queryByText("Adding")).not.toBeInTheDocument();
     });
+    test("Show points field can only take in numerical values", () => {
+        const pointsField = screen.getByTestId("0-points");
+
+        // attempt to insert 'a' into points field
+        userEvent.type(pointsField, "{selectall}a");
+
+        screen.getByTestId("modify-save-button").click();
+        screen.getByTestId("edit-exit-button").click();
+
+        screen.getByTestId("main-take-button").click();
+
+        // show that points field is actually still 5 points
+        expect(
+            within(screen.getByTestId("question-container-0")).getByText(
+                "5 Points"
+            )
+        ).toBeInTheDocument();
+    });
     test("Test to show that Move Up and Down buttons are disabled for first and last questions, respectively works", () => {
         const upButton = screen.getByTestId("0-up-button");
         const downButton = screen.getByTestId("2-down-button");
@@ -115,6 +133,8 @@ describe("ModifyQuestionList Tests", () => {
 
         screen.getByTestId("modify-save-button").click();
         screen.getByTestId("edit-exit-button").click();
+        expect(screen.getByText("4 Questions")).toBeInTheDocument();
+
         screen.getByTestId("main-take-button").click();
 
         const newQuestion = screen.getByTestId("question-container-3");
@@ -136,6 +156,8 @@ describe("ModifyQuestionList Tests", () => {
 
         screen.getByTestId("modify-save-button").click();
         screen.getByTestId("edit-exit-button").click();
+        expect(screen.getByText("2 Questions")).toBeInTheDocument();
+
         screen.getByTestId("main-take-button").click();
 
         expect(screen.queryByTestId("0-name")).not.toBeInTheDocument();

@@ -40,6 +40,8 @@ function QuizList({
                 </Form.Select>
             </Form.Group>
             <p>{selectedQuiz.description}</p>
+            <p>{selectedQuiz.questions.length} Questions</p>
+            <br></br>
         </div>
     );
 }

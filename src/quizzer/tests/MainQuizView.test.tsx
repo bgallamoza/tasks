@@ -14,7 +14,7 @@ describe("MainQuizView Tests", () => {
         expect(screen.getByRole("combobox")).toBeInTheDocument();
         expect(screen.getByRole("combobox")).toHaveLength(2);
     });
-    test("You can select the test data and the quiz title/body displays", () => {
+    test("You can select the test data and the quiz title/body/question length displays", () => {
         const select = screen.getByRole("combobox");
         userEvent.selectOptions(select, "Addition/Subtraction Problems");
         expect(
@@ -27,6 +27,8 @@ describe("MainQuizView Tests", () => {
             )
         ).toBeInTheDocument();
 
+        expect(screen.getByText("3 Questions")).toBeInTheDocument();
+
         userEvent.selectOptions(select, "Multiplication/Division Problems");
         expect(
             screen.getByText("Multiplication/Division Problems")
@@ -37,6 +39,8 @@ describe("MainQuizView Tests", () => {
                 "Basic elementary multiplication and division problems."
             )
         ).toBeInTheDocument();
+
+        expect(screen.getByText("3 Questions")).toBeInTheDocument();
     });
     test("Test Take Quiz button", () => {
         const takeQuiz = screen.getByTestId("main-take-button");
