@@ -3,7 +3,7 @@
         "id": 0,
         "title": "Addition/Subtraction Problems",
         "description": "Basic elementary addition and subtraction problems.",
-        "max_question_id": 1,
+        "max_question_id": 2,
         "questions": [
             {
                 "id": 0,
@@ -24,6 +24,16 @@
                 "expected": "0",
                 "points": 5,
                 "published": true
+            },
+            {
+                "id": 2,
+                "name": "Multiple Operations",
+                "body": "What is 6 - 2 + 5?",
+                "type": "short_answer_question",
+                "options": [],
+                "expected": "9",
+                "points": 10,
+                "published": false
             }
         ]
     },
@@ -31,7 +41,7 @@
         "id": 1,
         "title": "Multiplication/Division Problems",
         "description": "Basic elementary multiplication and division problems.",
-        "max_question_id": 1,
+        "max_question_id": 2,
         "questions": [
             {
                 "id": 0,

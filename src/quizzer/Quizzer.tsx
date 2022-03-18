@@ -24,8 +24,8 @@ const QUIZZES: Quiz[] = quizData.map(
 const NEW_QUIZ: Quiz = {
     id: 10,
     title: "New Quiz",
-    description: "",
-    max_question_id: 0,
+    description: "Sample Description",
+    max_question_id: NaN,
     questions: []
 };
 
@@ -35,7 +35,9 @@ function CurrentView({
     quizzes,
     setQuizzes,
     selectedQuiz,
-    setSelectedQuiz
+    setSelectedQuiz,
+    newQuizId,
+    setNewQuizId
 }: {
     mode: string;
     setMode: (newMode: string) => void;
@@ -43,6 +45,8 @@ function CurrentView({
     setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
     setSelectedQuiz: (newQuiz: Quiz) => void;
+    newQuizId: number;
+    setNewQuizId: (newId: number) => void;
 }): JSX.Element {
     // Wouldn't it be nice if the linter let me use switches? Alas
     if (mode === "edit") {
@@ -65,6 +69,8 @@ function CurrentView({
                 setQuizzes={setQuizzes}
                 selectedQuiz={{ ...NEW_QUIZ }}
                 setSelectedQuiz={setSelectedQuiz}
+                newQuizId={newQuizId}
+                setNewQuizId={setNewQuizId}
             />
         );
     } else if (mode === "take") {
@@ -84,6 +90,9 @@ export function Quizzer(): JSX.Element {
     const [mode, setMode] = useState<string>("main");
     const [quizzes, setQuizzes] = useState<Quiz[]>(QUIZZES);
     const [selectedQuiz, setSelectedQuiz] = useState<Quiz>(QUIZZES[0]);
+    const [newQuizId, setNewQuizId] = useState<number>(
+        Math.max(...QUIZZES.map((q: Quiz): number => q.id)) + 1
+    );
 
     return (
         <div>
@@ -95,6 +104,8 @@ export function Quizzer(): JSX.Element {
                 setQuizzes={setQuizzes}
                 selectedQuiz={selectedQuiz}
                 setSelectedQuiz={setSelectedQuiz}
+                newQuizId={newQuizId}
+                setNewQuizId={setNewQuizId}
             />
             <hr></hr>
             <div>

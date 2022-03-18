@@ -8,7 +8,11 @@ function ExitNewButton({
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("main")}>Exit Quiz Creator</Button>;
+    return (
+        <Button data-testid="new-exit-button" onClick={() => setMode("main")}>
+            Exit Quiz Creator
+        </Button>
+    );
 }
 
 export function NewQuizView({
@@ -17,7 +21,9 @@ export function NewQuizView({
     quizzes,
     setQuizzes,
     selectedQuiz,
-    setSelectedQuiz
+    setSelectedQuiz,
+    newQuizId,
+    setNewQuizId
 }: {
     mode: string;
     setMode: (newMode: string) => void;
@@ -25,6 +31,8 @@ export function NewQuizView({
     setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
     setSelectedQuiz: (newQuiz: Quiz) => void;
+    newQuizId: number;
+    setNewQuizId: (newId: number) => void;
 }): JSX.Element {
     return (
         <div>
@@ -35,6 +43,8 @@ export function NewQuizView({
                 setQuizzes={setQuizzes}
                 setSelectedQuiz={setSelectedQuiz}
                 selectedQuiz={selectedQuiz}
+                newQuizId={newQuizId}
+                setNewQuizId={setNewQuizId}
             />
             <div>
                 <ExitNewButton setMode={setMode} />

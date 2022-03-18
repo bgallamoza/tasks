@@ -21,10 +21,18 @@ function QuizList({
     return (
         <div>
             <Form.Group controlId="quizList">
-                <Form.Select value={selectedQuiz.id} onChange={updateSelection}>
+                <Form.Select
+                    data-testid="main-quiz-list"
+                    value={selectedQuiz.id}
+                    onChange={updateSelection}
+                >
                     {quizzes.map(
                         (q: Quiz): JSX.Element => (
-                            <option key={q.id} value={q.id}>
+                            <option
+                                key={q.id}
+                                value={q.id}
+                                data-testid={`quiz-option-${q.id}`}
+                            >
                                 {q.title}
                             </option>
                         )
@@ -32,6 +40,8 @@ function QuizList({
                 </Form.Select>
             </Form.Group>
             <p>{selectedQuiz.description}</p>
+            <p>{selectedQuiz.questions.length} Questions</p>
+            <br></br>
         </div>
     );
 }
@@ -45,6 +55,7 @@ function TakeQuizButton({
 }): JSX.Element {
     return (
         <Button
+            data-testid="main-take-button"
             disabled={isNaN(selectedQuiz.id)}
             onClick={() => setMode("take")}
         >
@@ -62,6 +73,7 @@ function EditQuizButton({
 }): JSX.Element {
     return (
         <Button
+            data-testid="main-edit-button"
             disabled={isNaN(selectedQuiz.id)}
             onClick={() => setMode("edit")}
         >
@@ -75,7 +87,11 @@ function NewQuizButton({
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("new")}>+ New Quiz</Button>;
+    return (
+        <Button data-testid="main-new-button" onClick={() => setMode("new")}>
+            + New Quiz
+        </Button>
+    );
 }
 
 export function MainQuizView({
@@ -98,7 +114,11 @@ export function MainQuizView({
                 setSelectedQuiz={setSelectedQuiz}
             />
             <div>
-                <TakeQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
+                <TakeQuizButton
+                    data-testid="main-take-button"
+                    selectedQuiz={selectedQuiz}
+                    setMode={setMode}
+                />
                 {"   "}
                 <EditQuizButton selectedQuiz={selectedQuiz} setMode={setMode} />
             </div>
