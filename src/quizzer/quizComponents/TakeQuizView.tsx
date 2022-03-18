@@ -118,7 +118,7 @@ function QuestionOptions({
                         <Form.Check
                             key={`${question.id}-${choice}`}
                             type="radio"
-                            name="choice"
+                            name={`${question.id}-choice-${choice}`}
                             data-testid={`${question.id}-${choice}`}
                             label={choice}
                             value={choice}
@@ -175,7 +175,10 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
             <ol>
                 {questions.map(
                     (q: Question): JSX.Element => (
-                        <li key={q.id}>
+                        <li
+                            key={q.id}
+                            data-testid={`question-container-${q.id}`}
+                        >
                             <p>
                                 <b>{q.name}</b>
                             </p>

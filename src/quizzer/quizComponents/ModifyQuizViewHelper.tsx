@@ -83,6 +83,7 @@ export function ModifyQuizViewHelper({
             <Form.Label>QUIZ NAME</Form.Label>
             <Form.Control
                 value={quizInfo.title}
+                data-testid="modify-quiz-name"
                 onChange={(e) =>
                     setQuizInfo({ ...selectedQuiz, title: e.target.value })
                 }

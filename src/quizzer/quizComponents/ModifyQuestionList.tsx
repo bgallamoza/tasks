@@ -6,7 +6,7 @@ import { Button, Form } from "react-bootstrap";
 const DUMMY_QUESTION: Question = {
     id: 0,
     name: "New Question",
-    body: "",
+    body: "Sample Body",
     type: "short_answer_question" as QuestionType,
     options: [],
     expected: "",
@@ -87,8 +87,8 @@ export function ModifyQuestionList({
                             <Form.Label>Question Name:</Form.Label>
                             <Form.Control
                                 value={q.name}
+                                data-testid={`${q.id}-name`}
                                 onChange={(e) =>
-                                    // handleQuestions(q, "name", e.target.value)
                                     updateQuestion({
                                         ...q,
                                         name: e.target.value
@@ -98,6 +98,7 @@ export function ModifyQuestionList({
                             <Form.Label>Question Body:</Form.Label>
                             <Form.Control
                                 value={q.body}
+                                data-testid={`${q.id}-body`}
                                 onChange={(e) =>
                                     updateQuestion({
                                         ...q,
@@ -108,6 +109,7 @@ export function ModifyQuestionList({
                             <Form.Label>Question Type</Form.Label>
                             <Form.Select
                                 value={q.type.toString()}
+                                data-testid={`${q.id}-type`}
                                 onChange={(e) =>
                                     updateQuestion({
                                         ...q,
@@ -132,6 +134,7 @@ export function ModifyQuestionList({
                                         as="textarea"
                                         rows={q.options.length + 2}
                                         value={q.options.join("\n")}
+                                        data-testid={`${q.id}-options`}
                                         onChange={(e) =>
                                             updateQuestion({
                                                 ...q,
@@ -145,6 +148,7 @@ export function ModifyQuestionList({
                             <Form.Label>Expected Answer</Form.Label>
                             <Form.Control
                                 value={q.expected}
+                                data-testid={`${q.id}-expected`}
                                 onChange={(e) =>
                                     updateQuestion({
                                         ...q,
@@ -155,6 +159,7 @@ export function ModifyQuestionList({
                             <Form.Label>Question Points</Form.Label>
                             <Form.Control
                                 value={q.points}
+                                data-testid={`${q.id}-points`}
                                 onChange={(e) =>
                                     updatePoints(q.id, e.target.value)
                                 }
@@ -164,6 +169,7 @@ export function ModifyQuestionList({
                                 id="edit-published-check"
                                 label="Publish Question"
                                 checked={q.published}
+                                data-testid={`${q.id}-published`}
                                 onChange={(e) =>
                                     updateQuestion({
                                         ...q,
@@ -174,12 +180,14 @@ export function ModifyQuestionList({
                             <div>
                                 <Button
                                     disabled={idx === 0}
+                                    data-testid={`${q.id}-up-button`}
                                     onClick={() => updateOrder(idx, "up")}
                                 >
                                     Move Up
                                 </Button>
                                 <Button
                                     disabled={idx === questions.length - 1}
+                                    data-testid={`${q.id}-down-button`}
                                     onClick={() => updateOrder(idx, "down")}
                                 >
                                     Move Down
@@ -187,7 +195,10 @@ export function ModifyQuestionList({
                             </div>
                             <br></br>
                             <div>
-                                <Button onClick={() => deleteQuestion(q.id)}>
+                                <Button
+                                    data-testid={`${q.id}-delete-button`}
+                                    onClick={() => deleteQuestion(q.id)}
+                                >
                                     Delete Question
                                 </Button>
                             </div>
@@ -197,7 +208,10 @@ export function ModifyQuestionList({
                 )}
             </ol>
             <div>
-                <Button onClick={() => addQuestion(quizInfo.max_question_id)}>
+                <Button
+                    data-testid="modify-add-button"
+                    onClick={() => addQuestion(quizInfo.max_question_id)}
+                >
                     Add New Question
                 </Button>
             </div>
