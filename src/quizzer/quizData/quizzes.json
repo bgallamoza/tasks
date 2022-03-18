@@ -24,6 +24,16 @@
                 "expected": "0",
                 "points": 5,
                 "published": true
+            },
+            {
+                "id": 2,
+                "name": "Multiple Operations",
+                "body": "What is 6 - 2 + 5?",
+                "type": "short_answer_question",
+                "options": [],
+                "expected": "9",
+                "points": 10,
+                "published": false
             }
         ]
     },

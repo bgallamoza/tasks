@@ -9,7 +9,11 @@ function ExitQuizButton({
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("main")}>Exit Quiz</Button>;
+    return (
+        <Button data-testid="take-exit-button" onClick={() => setMode("main")}>
+            Exit Quiz
+        </Button>
+    );
 }
 
 function ClearAnswersButton({
@@ -35,7 +39,14 @@ function ClearAnswersButton({
         );
         setTotalPoints(0);
     }
-    return <Button onClick={() => ResetAnswerInfo()}>Reset Answers</Button>;
+    return (
+        <Button
+            data-testid="take-clear-button"
+            onClick={() => ResetAnswerInfo()}
+        >
+            Reset Answers
+        </Button>
+    );
 }
 
 function QuestionOptions({
@@ -92,6 +103,7 @@ function QuestionOptions({
             <div>
                 {" "}
                 <Form.Control
+                    data-testid={`${question.id}-textbox`}
                     value={currentAnswer.text}
                     onChange={updateAnswers}
                 />
@@ -107,7 +119,7 @@ function QuestionOptions({
                             key={`${question.id}-${choice}`}
                             type="radio"
                             name="choice"
-                            id={`${question.id}-${choice}`}
+                            data-testid={`${question.id}-${choice}`}
                             label={choice}
                             value={choice}
                             checked={choice === currentAnswer.text}
@@ -154,7 +166,7 @@ function QuizQuestionList({ quiz }: { quiz: Quiz }): JSX.Element {
             <div>
                 <Form.Check
                     type="checkbox"
-                    id="is-published-check"
+                    data-testid="take-published-check"
                     label="Only show published questions"
                     checked={isOnlyPublished}
                     onChange={updatePublished}

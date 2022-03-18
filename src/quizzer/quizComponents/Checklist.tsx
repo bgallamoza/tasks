@@ -10,17 +10,19 @@ export function Checklist(): JSX.Element {
                         <ul>
                             <li>✔️Sketch Application </li>
                             <li>✔️Quizzes are Visible | Test: ✔️</li>
-                            <li>✔️Short Answer and Multiple Choice | Test:</li>
-                            <li>✔️Check Correctness | Test:</li>
-                            <li>✔️Sum Points | Test:</li>
-                            <li>✔️Clear Answers | Test:</li>
+                            <li>
+                                ✔️Short Answer and Multiple Choice | Test: ✔️
+                            </li>
+                            <li>✔️Check Correctness | Test: ✔️</li>
+                            <li>✔️Sum Points | Test: ✔️</li>
+                            <li>✔️Clear Answers | Test ✔️:</li>
                             <li>✔️Delete Quizzes | Test:</li>
                         </ul>
                     </Col>
                     <Col>
                         <ul>
                             <li>✔️Publish Questions | Test:</li>
-                            <li>✔️Filter Questions | Test:</li>
+                            <li>✔️Filter Questions | Test: ✔️</li>
                             <li>✔️Edit Questions | Test:</li>
                             <li>✔️Add Questions | Test:</li>
                             <li>✔️Delete Questions | Test:</li>
