@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Quizzer } from "../Quizzer";
 
-describe("Quizzer Tests", () => {
+describe("MainQuizView Tests", () => {
     beforeEach(() => {
         render(<Quizzer />);
     });

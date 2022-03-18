@@ -73,6 +73,8 @@ export function EditQuizView({
                 setQuizzes={setQuizzes}
                 setSelectedQuiz={setSelectedQuiz}
                 selectedQuiz={selectedQuiz}
+                newQuizId={NaN} // dummy val; unusued by edit
+                setNewQuizId={(n: number) => n} // dummy function; unusued by edit
             />
             <br></br>
             <DeleteQuizButton

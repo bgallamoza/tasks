@@ -10,7 +10,9 @@ function SaveChangesButton({
     setQuizzes,
     setSelectedQuiz,
     newQuestions,
-    quizInfo
+    quizInfo,
+    newQuizId,
+    setNewQuizId
 }: {
     mode: string;
     quizzes: Quiz[];
@@ -18,6 +20,8 @@ function SaveChangesButton({
     setSelectedQuiz: (newQuiz: Quiz) => void;
     newQuestions: Question[];
     quizInfo: Quiz;
+    newQuizId: number;
+    setNewQuizId: (newId: number) => void;
 }): JSX.Element {
     function saveChanges() {
         if (mode === "edit") {
@@ -34,14 +38,19 @@ function SaveChangesButton({
         } else {
             const newQuiz: Quiz = {
                 ...quizInfo,
-                id: quizzes[quizzes.length - 1].id + 1,
+                id: newQuizId,
                 questions: newQuestions
             };
             setQuizzes([...quizzes, newQuiz]);
+            setNewQuizId(newQuizId + 1);
         }
     }
 
-    return <Button onClick={() => saveChanges()}>Save Changes</Button>;
+    return (
+        <Button data-testid="modify-save-button" onClick={() => saveChanges()}>
+            Save Changes
+        </Button>
+    );
 }
 
 export function ModifyQuizViewHelper({
@@ -49,13 +58,17 @@ export function ModifyQuizViewHelper({
     quizzes,
     setQuizzes,
     selectedQuiz,
-    setSelectedQuiz
+    setSelectedQuiz,
+    newQuizId,
+    setNewQuizId
 }: {
     mode: string;
     quizzes: Quiz[];
     setQuizzes: (newQuizzes: Quiz[]) => void;
     selectedQuiz: Quiz;
     setSelectedQuiz: (newQuiz: Quiz) => void;
+    newQuizId: number;
+    setNewQuizId: (newId: number) => void;
 }): JSX.Element {
     const [quizInfo, setQuizInfo] = useState<Quiz>({
         ...selectedQuiz,
@@ -76,7 +89,6 @@ export function ModifyQuizViewHelper({
             />
             <ModifyQuestionList
                 questions={questions}
-                // dispatch={dispatch}
                 setQuestions={setQuestions}
                 quizInfo={quizInfo}
                 setQuizInfo={setQuizInfo}
@@ -90,6 +102,8 @@ export function ModifyQuizViewHelper({
                     setSelectedQuiz={setSelectedQuiz}
                     newQuestions={questions}
                     quizInfo={quizInfo}
+                    newQuizId={newQuizId}
+                    setNewQuizId={setNewQuizId}
                 />
             </div>
         </div>
