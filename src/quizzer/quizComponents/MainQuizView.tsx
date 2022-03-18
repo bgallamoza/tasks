@@ -28,7 +28,11 @@ function QuizList({
                 >
                     {quizzes.map(
                         (q: Quiz): JSX.Element => (
-                            <option key={q.id} value={q.id}>
+                            <option
+                                key={q.id}
+                                value={q.id}
+                                data-testid={`quiz-option-${q.id}`}
+                            >
                                 {q.title}
                             </option>
                         )

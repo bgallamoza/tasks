@@ -16,7 +16,11 @@ function ExitEditButton({
 }: {
     setMode: (newMode: string) => void;
 }): JSX.Element {
-    return <Button onClick={() => setMode("main")}>Exit Editor</Button>;
+    return (
+        <Button data-testid="edit-exit-button" onClick={() => setMode("main")}>
+            Exit Editor
+        </Button>
+    );
 }
 
 function DeleteQuizButton({
@@ -42,7 +46,11 @@ function DeleteQuizButton({
             : setSelectedQuiz(newQuizzes[0]);
         setMode("main");
     }
-    return <Button onClick={() => handleDelete()}>Delete Quiz</Button>;
+    return (
+        <Button data-testid="edit-delete-button" onClick={() => handleDelete()}>
+            Delete Quiz
+        </Button>
+    );
 }
 
 export function EditQuizView({
