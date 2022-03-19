@@ -25,7 +25,7 @@ const NEW_QUIZ: Quiz = {
     id: 10,
     title: "New Quiz",
     description: "Sample Description",
-    max_question_id: NaN,
+    max_question_id: -1,
     questions: []
 };
 
